@@ -1,0 +1,33 @@
+.container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #2c7be5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #1a5dc9;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  color: green;
+}

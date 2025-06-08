@@ -1,0 +1,23 @@
+# Node modules (already installed inside container)
+node_modules
+
+# Dependency lock files (optional; only if not needed for caching)
+npm-debug.log
+yarn-error.log
+
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# Environment and sensitive files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+build
+dist
+coverage
+
+# Logs
+*.log
