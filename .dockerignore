@@ -1,0 +1,25 @@
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual environments
+venv/
+.env/
+
+# Docker and Git
+.dockerignore
+.git
+.gitignore
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
+
+# IDE
+.vscode
+.idea
