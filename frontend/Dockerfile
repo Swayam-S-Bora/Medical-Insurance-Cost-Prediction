@@ -1,6 +1,6 @@
 # This Dockerfile sets up a Node.js environment for the frontend application.
 
-FROM node:20
+FROM node:24-slim
 
 WORKDIR /app
 
@@ -9,6 +9,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 5173
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
