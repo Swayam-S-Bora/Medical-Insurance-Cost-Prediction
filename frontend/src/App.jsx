@@ -6,7 +6,7 @@ function App() {
     age: '',
     bmi: '',
     children: '',
-    smoker: '',
+    smoker: ''
   });
 
   const [prediction, setPrediction] = useState(null);
@@ -29,7 +29,7 @@ function App() {
       age: parseInt(formData.age),
       bmi: parseFloat(formData.bmi),
       children: parseInt(formData.children),
-      smoker: formData.smoker,
+      smoker: formData.smoker
     };
 
     try {
@@ -59,50 +59,40 @@ function App() {
     const items = Object.entries(contributions);
     const maxAbs = Math.max(...items.map(([_, v]) => Math.abs(v)));
 
-    const featureExplanations = {
-      age: "Younger individuals typically pay lower premiums.",
-      bmi: "A healthy BMI reduces health risk and thus insurance cost.",
-      children: "Having more children can increase coverage needs.",
-      smoker: "Being a smoker significantly increases insurance costs.",
-    };
+    // const featureExplanations = {
+    //   age: "Younger individuals typically pay lower premiums.",
+    //   bmi: "A healthy BMI reduces health risk and thus insurance cost.",
+    //   children: "Having more children can increase coverage needs.",
+    //   smoker: "Being a smoker significantly increases insurance costs.",
+    // };
 
     return (
       <div className="mt-8">
-        <h5 className="text-lg font-semibold mb-4">Feature Contributions (SHAP)</h5>
-        {items.map(([feature, value]) => {
-          const percent = (Math.abs(value) / maxAbs) * 100;
-          return (
-            <div key={feature} className="mb-3">
-              <div className="flex justify-between text-sm font-medium">
-                <span>{feature}</span>
-                <span className="text-gray-500">{value.toFixed(2)}</span>
-              </div>
-              <div className="w-full bg-gray-200 h-4 rounded overflow-hidden">
-                <div
-                  className={`h-4 ${value >= 0 ? 'bg-green-500' : 'bg-red-500'}`}
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
-            </div>
-          );
-        })}
-
         <button
-          className="mt-4 flex items-center text-blue-600 hover:underline"
+          className='mt-4 flex items-center text-blue-600 hover:underline'
           onClick={() => setShowDetails(!showDetails)}
         >
-          Details {showDetails ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+          Feature Contributions {showDetails ? '▲' : '▼'}
         </button>
-
         {showDetails && (
-          <div className="mt-3 p-4 border border-gray-200 rounded bg-gray-50">
-            <ul className="list-disc pl-5 space-y-1 text-sm">
-              {items.map(([feature]) => (
-                <li key={feature}>
-                  <strong>{feature}:</strong> {featureExplanations[feature] || "No explanation available."}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-4">
+            {items.map(([feature, value]) => {
+              const percent = (Math.abs(value) / maxAbs) * 100;
+              return (
+                <div key={feature} className="mb-3">
+                  <div className="flex justify-between text-sm font-medium">
+                    <span>{feature}</span>
+                    <span className="text-gray-500">{value.toFixed(2)}</span>
+                  </div>
+                  <div className="w-full bg-gray-200 h-4 rounded overflow-hidden">
+                    <div
+                      className={`h-4 ${value >= 0 ? 'bg-red-500' : 'bg-green-500'}`}
+                      style={{ width: `${percent}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
@@ -110,7 +100,7 @@ function App() {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white text-black dark:bg-gray-900 dark:text-white rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-center mb-6">Medical Insurance Cost Predictor</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
