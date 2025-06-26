@@ -1,6 +1,10 @@
 # Node modules (already installed inside container)
 node_modules
 
+# Dependency lock files (optional; only if not needed for caching)
+npm-debug.log
+yarn-error.log
+
 # OS/system files
 .DS_Store
 Thumbs.db
@@ -14,3 +18,6 @@ Thumbs.db
 build
 dist
 coverage
+
+# Logs
+*.log
