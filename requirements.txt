@@ -55,5 +55,4 @@ yarg==0.1.10
 gunicorn==21.2.0
 uvicorn[standard]==0.29.0
 fastapi==0.104.1
-shap==0.44.1
-pydantic==2.4.2
+pydantic==1.10.12
