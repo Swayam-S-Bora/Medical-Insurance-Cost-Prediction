@@ -172,10 +172,20 @@ function App() {
 
             {/* BMI Input */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 font-medium text-gray-700">
-                <Heart className="w-4 h-4" />
-                BMI (Body Mass Index)
-              </label>
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 font-medium text-gray-700">
+                  <Heart className="w-4 h-4" />
+                  BMI (Body Mass Index)
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setCalculatorVisible(!calculatorVisible)}
+                  className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition-colors duration-200 flex items-center gap-1"
+                >
+                  <Calculator className="w-3 h-3" />
+                  {calculatorVisible ? 'Hide' : 'Calculate BMI'}
+                </button>
+              </div>
               <input
                 type="number"
                 step="0.1"
@@ -192,6 +202,65 @@ function App() {
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-gray-600">Category:</span>
                   <span className={`font-medium ${bmiInfo.color}`}>{bmiInfo.category}</span>
+                </div>
+              )}
+              
+              {/* BMI Calculator - moved here */}
+              {calculatorVisible && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-3">
+                  <h4 className="font-medium text-blue-800 mb-3 flex items-center gap-2">
+                    <Calculator className="w-4 h-4" />
+                    BMI Calculator
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label>
+                      <input
+                        type="number"
+                        placeholder="e.g., 175"
+                        value={bmiCalc.height}
+                        onChange={(e) => setBmiCalc({ ...bmiCalc, height: e.target.value })}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+                      <input
+                        type="number"
+                        placeholder="e.g., 70"
+                        value={bmiCalc.weight}
+                        onChange={(e) => setBmiCalc({ ...bmiCalc, weight: e.target.value })}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const heightInMeters = bmiCalc.height / 100;
+                      const calculatedBMI = (bmiCalc.weight / (heightInMeters * heightInMeters)).toFixed(2);
+                      setBmiCalc({ ...bmiCalc, calculatedBMI });
+                      setFormData({ ...formData, bmi: calculatedBMI });
+                    }}
+                    disabled={!bmiCalc.height || !bmiCalc.weight}
+                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    <Calculator className="w-4 h-4" />
+                    Calculate & Use BMI
+                  </button>
+                  {bmiCalc.calculatedBMI && (
+                    <div className="mt-3 p-3 bg-white rounded-lg border border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-600">Calculated BMI:</span>
+                        <span className="font-semibold text-blue-800">{bmiCalc.calculatedBMI}</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-sm text-gray-600">Category:</span>
+                        <span className={`text-sm font-medium ${getBMICategory(parseFloat(bmiCalc.calculatedBMI)).color}`}>
+                          {getBMICategory(parseFloat(bmiCalc.calculatedBMI)).category}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
