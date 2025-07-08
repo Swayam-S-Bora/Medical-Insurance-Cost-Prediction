@@ -83,7 +83,22 @@ input:focus, select:focus, textarea:focus {
     color: #000000 !important;
   }
   
-  div, span, p, h1, h2, h3, h4, h5, h6 {
-    color: inherit !important;
+  /* Force light mode on specific elements */
+  .bg-gradient-to-br {
+    background: linear-gradient(to bottom right, #f8fafc, #dbeafe, #e0e7ff) !important;
+  }
+}
+
+/* Optimize for 16:9 aspect ratio */
+@media (min-width: 768px) {
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  
+  /* Ensure proper layout for wider screens */
+  @media (min-aspect-ratio: 16/9) {
+    .min-h-screen {
+      height: 100vh;
+    }
   }
 }
