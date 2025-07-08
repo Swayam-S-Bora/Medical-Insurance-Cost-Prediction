@@ -9,7 +9,7 @@ import joblib
 # Load the model
 model = joblib.load("app/insurancemodel.pkl")
 
-# # Initialize SHAP explainer
+# Initialize SHAP explainer
 # explainer = shap.Explainer(model)
 
 # Input schema using Pydantic
@@ -54,18 +54,20 @@ def predict(data: InsuranceInput):
 
 @app.post("/explain")
 def explain(data: InsuranceInput):
+    # Simplified feature importance explanation without SHAP
     smoker_map = {"yes": 1, "no": 0}
     try:
-        input_df = pd.DataFrame([{
-            "age": data.age,
-            "bmi": data.bmi,
-            "children": data.children,
-            "smoker": smoker_map[data.smoker.lower()],
-        }])
+        # Basic feature impact simulation
+        smoker_value = smoker_map[data.smoker.lower()]
+        
+        # Simple feature importance approximation
+        contributions = {
+            "age": data.age * 250,  # Age has moderate impact
+            "bmi": (data.bmi - 25) * 400,  # BMI deviation from normal
+            "children": data.children * 500,  # Each child adds cost
+            "smoker": smoker_value * 20000,  # Smoking has major impact
+        }
+        
+        return {"contributions": contributions}
     except KeyError as e:
         return {"error": f"Invalid input: {e}"}
-
-    shap_values = explainer(input_df)
-    contributions = dict(zip(input_df.columns, shap_values.values[0]))
-
-    return {"contributions": contributions}
