@@ -142,7 +142,7 @@ function App() {
             <div className="p-3 bg-blue-600 rounded-full">
               <Calculator className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-800">Insurance Cost Predictor</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Medical Insurance Cost Predictor</h1>
           </div>
           <p className="text-gray-600">Get an estimate of your medical insurance premium based on your profile</p>
         </div>
