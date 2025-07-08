@@ -277,20 +277,6 @@ function App() {
                         <Calculator className="w-4 h-4" />
                         Calculate & Use BMI
                       </button>
-                      {bmiCalc.calculatedBMI && (
-                        <div className="mt-3 p-3 bg-white rounded-lg border border-blue-200 shadow-sm">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-600">Calculated BMI:</span>
-                            <span className="font-bold text-blue-800">{bmiCalc.calculatedBMI}</span>
-                          </div>
-                          <div className="flex items-center justify-between mt-1">
-                            <span className="text-sm text-gray-600">Category:</span>
-                            <span className={`text-sm font-bold ${getBMICategory(parseFloat(bmiCalc.calculatedBMI)).color}`}>
-                              {getBMICategory(parseFloat(bmiCalc.calculatedBMI)).category}
-                            </span>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -545,20 +531,6 @@ function App() {
                     <Calculator className="w-4 h-4" />
                     Calculate & Use BMI
                   </button>
-                  {bmiCalc.calculatedBMI && (
-                    <div className="mt-3 p-3 bg-white rounded-lg border border-blue-200 shadow-sm">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">Calculated BMI:</span>
-                        <span className="font-bold text-blue-800">{bmiCalc.calculatedBMI}</span>
-                      </div>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-sm text-gray-600">Category:</span>
-                        <span className={`text-sm font-bold ${getBMICategory(parseFloat(bmiCalc.calculatedBMI)).color}`}>
-                          {getBMICategory(parseFloat(bmiCalc.calculatedBMI)).category}
-                        </span>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
