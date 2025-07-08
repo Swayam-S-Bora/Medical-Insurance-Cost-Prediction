@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +15,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -18,16 +36,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 h1 {
@@ -54,19 +62,29 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Force consistent styling regardless of browser dark mode */
 input, select, textarea {
   background-color: #ffffff !important;
   color: #000000 !important;
   border: 1px solid #d1d5db !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 input:focus, select:focus, textarea:focus {
   background-color: #ffffff !important;
   color: #000000 !important;
+  outline: none !important;
 }
 
-/* Additional dark mode overrides */
+/* Override all dark mode attempts */
 @media (prefers-color-scheme: dark) {
+  html, body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: inherit !important;
+  }
+  
   input, select, textarea {
     background-color: #ffffff !important;
     color: #000000 !important;
@@ -78,27 +96,38 @@ input:focus, select:focus, textarea:focus {
     color: #000000 !important;
   }
   
-  body {
+  option {
     background-color: #ffffff !important;
     color: #000000 !important;
   }
-  
-  /* Force light mode on specific elements */
-  .bg-gradient-to-br {
-    background: linear-gradient(to bottom right, #f8fafc, #dbeafe, #e0e7ff) !important;
+}
+
+/* Optimize for wider screens */
+@media (min-width: 1024px) {
+  .app-container {
+    max-width: none;
+    width: 100%;
+    height: 100vh;
   }
 }
 
-/* Optimize for 16:9 aspect ratio */
-@media (min-width: 768px) {
-  .min-h-screen {
-    min-height: 100vh;
+/* Responsive text scaling */
+@media (min-width: 1440px) {
+  .desktop-title {
+    font-size: 3.5rem;
   }
   
-  /* Ensure proper layout for wider screens */
-  @media (min-aspect-ratio: 16/9) {
-    .min-h-screen {
-      height: 100vh;
-    }
+  .desktop-subtitle {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .desktop-title {
+    font-size: 4rem;
+  }
+  
+  .desktop-subtitle {
+    font-size: 3rem;
   }
 }
