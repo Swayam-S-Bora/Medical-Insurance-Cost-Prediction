@@ -141,9 +141,9 @@ function App() {
       {/* Desktop Layout */}
       <div className="hidden md:flex min-h-screen">
         {/* Left Side - Input Form */}
-        <div className="w-3/5 p-6 lg:p-8 flex items-center justify-center">
-          <div className="w-full max-w-lg">
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20">
+        <div className="w-[60%] p-6 lg:p-8 flex items-center justify-center">
+          <div className="w-full max-w-lg flex-shrink-0" style={{minHeight: 'auto'}}>
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20" style={{minHeight: 'fit-content'}}>
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
@@ -232,7 +232,7 @@ function App() {
                   )}
                   
                   {/* BMI Calculator */}
-                  {calculatorVisible && (
+                  <div className="overflow-hidden transition-all duration-300 ease-in-out" style={{maxHeight: calculatorVisible ? '400px' : '0px'}}>
                     <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-4 mt-3 shadow-inner">
                       <h4 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
                         <Calculator className="w-4 h-4" />
@@ -292,7 +292,7 @@ function App() {
                         </div>
                       )}
                     </div>
-                  )}
+                  </div>
                 </div>
 
 
@@ -341,7 +341,7 @@ function App() {
         </div>
 
         {/* Right Side - Title and Results */}
-        <div className="w-2/5 p-6 lg:p-8 flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 relative overflow-hidden">
+        <div className="w-[40%] p-6 lg:p-8 flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
@@ -355,13 +355,13 @@ function App() {
               <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
                 <Activity className="w-10 h-10 text-white" />
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{color: '#ffffff !important'}}>
                 Medical Insurance
               </h1>
-              <h2 className="text-3xl lg:text-4xl font-bold text-white/90 mb-6">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6" style={{color: 'rgba(255, 255, 255, 0.9) !important'}}>
                 Cost Predictor
               </h2>
-              <p className="text-white/80 text-lg max-w-md mx-auto leading-relaxed">
+              <p className="text-lg max-w-md mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.8) !important'}}>
                 Get an accurate estimate of your medical insurance premium based on your personal profile and health factors
               </p>
             </div>
@@ -497,7 +497,7 @@ function App() {
               )}
               
               {/* BMI Calculator */}
-              {calculatorVisible && (
+              <div className="overflow-hidden transition-all duration-300 ease-in-out" style={{maxHeight: calculatorVisible ? '400px' : '0px'}}>
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-4 mt-3 shadow-inner">
                   <h4 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
                     <Calculator className="w-4 h-4" />
@@ -559,7 +559,7 @@ function App() {
                     </div>
                   )}
                 </div>
-              )}
+              </div>
             </div>
 
             {/* Children Input */}
