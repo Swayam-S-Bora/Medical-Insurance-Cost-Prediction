@@ -139,12 +139,12 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Desktop Layout */}
-      <div className="hidden lg:flex min-h-screen">
+      <div className="hidden md:flex min-h-screen">
         {/* Left Side - Input Form */}
-        <div className="w-1/2 p-8 flex items-center justify-center">
-          <div className="w-full max-w-md">
+        <div className="w-3/5 p-6 lg:p-8 flex items-center justify-center">
+          <div className="w-full max-w-lg">
             <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20">
-              <div className="mb-8">
+              <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
                     <Activity className="w-6 h-6 text-white" />
@@ -156,24 +156,44 @@ function App() {
                 <p className="text-gray-600 text-sm">Enter your details to get an accurate estimate</p>
               </div>
 
-              <div className="space-y-6">
-                {/* Age Input */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
-                    <TrendingUp className="w-4 h-4 text-blue-600" />
-                    Age
-                  </label>
-                  <input
-                    type="number"
-                    name="age"
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
-                    placeholder="Enter your age"
-                    value={formData.age}
-                    onChange={handleChange}
-                    min="18"
-                    max="100"
-                    required
-                  />
+              <div className="space-y-4">
+                {/* Age and Children Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                      <TrendingUp className="w-4 h-4 text-blue-600" />
+                      Age
+                    </label>
+                    <input
+                      type="number"
+                      name="age"
+                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      placeholder="Enter your age"
+                      value={formData.age}
+                      onChange={handleChange}
+                      min="18"
+                      max="100"
+                      required
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                      <Users className="w-4 h-4 text-green-600" />
+                      Children
+                    </label>
+                    <input
+                      type="number"
+                      name="children"
+                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      placeholder="Number of children"
+                      value={formData.children}
+                      onChange={handleChange}
+                      min="0"
+                      max="10"
+                      required
+                    />
+                  </div>
                 </div>
 
                 {/* BMI Input */}
@@ -226,7 +246,6 @@ function App() {
                           </label>
                           <input
                             type="number"
-                            placeholder="e.g., 175"
                             value={bmiCalc.height}
                             onChange={(e) => setBmiCalc({ ...bmiCalc, height: e.target.value })}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
@@ -239,7 +258,6 @@ function App() {
                           </label>
                           <input
                             type="number"
-                            placeholder="e.g., 70"
                             value={bmiCalc.weight}
                             onChange={(e) => setBmiCalc({ ...bmiCalc, weight: e.target.value })}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
@@ -277,24 +295,6 @@ function App() {
                   )}
                 </div>
 
-                {/* Children Input */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
-                    <Users className="w-4 h-4 text-green-600" />
-                    Number of Children
-                  </label>
-                  <input
-                    type="number"
-                    name="children"
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
-                    placeholder="Enter number of children"
-                    value={formData.children}
-                    onChange={handleChange}
-                    min="0"
-                    max="10"
-                    required
-                  />
-                </div>
 
                 {/* Smoker Select */}
                 <div className="space-y-2">
@@ -316,7 +316,7 @@ function App() {
                 </div>
 
                 {/* Submit Button */}
-                <div className="mt-8">
+                <div className="mt-6">
                   <button
                     onClick={handleSubmit}
                     disabled={isLoading}
@@ -341,7 +341,7 @@ function App() {
         </div>
 
         {/* Right Side - Title and Results */}
-        <div className="w-1/2 p-8 flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 relative overflow-hidden">
+        <div className="w-2/5 p-6 lg:p-8 flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
@@ -355,10 +355,10 @@ function App() {
               <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
                 <Activity className="w-10 h-10 text-white" />
               </div>
-              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
                 Medical Insurance
               </h1>
-              <h2 className="text-4xl font-bold text-white/90 mb-6">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white/90 mb-6">
                 Cost Predictor
               </h2>
               <p className="text-white/80 text-lg max-w-md mx-auto leading-relaxed">
@@ -425,7 +425,7 @@ function App() {
       </div>
 
       {/* Mobile Layout */}
-      <div className="lg:hidden min-h-screen p-4">
+      <div className="md:hidden min-h-screen p-4">
         {/* Mobile Title */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
