@@ -137,13 +137,13 @@ function App() {
   const bmiInfo = formData.bmi ? getBMICategory(parseFloat(formData.bmi)) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="w-full h-screen overflow-hidden app-container">
       {/* Desktop Layout */}
-      <div className="hidden md:flex min-h-screen">
+      <div className="hidden md:flex w-full h-full">
         {/* Left Side - Input Form */}
-        <div className="w-[60%] p-6 lg:p-8 flex items-center justify-center">
-          <div className="w-full max-w-lg flex-shrink-0" style={{minHeight: 'auto'}}>
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20" style={{minHeight: 'fit-content'}}>
+        <div className="w-[65%] h-full flex items-center justify-center p-4 lg:p-8">
+          <div className="w-full max-w-2xl flex-shrink-0">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 lg:p-8 border border-white/30">
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
@@ -341,7 +341,7 @@ function App() {
         </div>
 
         {/* Right Side - Title and Results */}
-        <div className="w-[40%] p-6 lg:p-8 flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 relative overflow-hidden">
+        <div className="w-[35%] h-full flex items-center justify-center bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
@@ -353,15 +353,15 @@ function App() {
           <div className={`text-center transition-all duration-1000 ${showResults ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'} ${showResults ? 'absolute' : 'relative'}`}>
             <div className="mb-6">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
-                <Activity className="w-10 h-10 text-white" />
+                <Activity className="w-10 h-10" style={{color: '#ffffff'}} />
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{color: '#ffffff !important'}}>
+              <h1 className="desktop-title text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{color: '#ffffff'}}>
                 Medical Insurance
               </h1>
-              <h2 className="text-3xl lg:text-4xl font-bold mb-6" style={{color: 'rgba(255, 255, 255, 0.9) !important'}}>
+              <h2 className="desktop-subtitle text-3xl lg:text-4xl font-bold mb-6" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
                 Cost Predictor
               </h2>
-              <p className="text-lg max-w-md mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.8) !important'}}>
+              <p className="text-lg max-w-md mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.8)'}}>
                 Get an accurate estimate of your medical insurance premium based on your personal profile and health factors
               </p>
             </div>
@@ -370,24 +370,24 @@ function App() {
           {/* Results (fades in when available) */}
           {prediction !== null && (
             <div className={`transition-all duration-1000 ${showResults ? 'opacity-100 transform scale-100' : 'opacity-0 transform scale-95'} ${!showResults ? 'absolute' : 'relative'} w-full max-w-md`}>
-              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-2xl">
+              <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-8 border border-white/30 shadow-2xl">
                 <div className="text-center mb-8">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
-                    <Calculator className="w-8 h-8 text-white" />
+                    <Calculator className="w-8 h-8" style={{color: '#ffffff'}} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Your Estimated Premium</h3>
-                  <div className="text-5xl font-bold text-white mb-2">
+                  <h3 className="text-2xl font-bold mb-2" style={{color: '#ffffff'}}>Your Estimated Premium</h3>
+                  <div className="text-5xl font-bold mb-2" style={{color: '#ffffff'}}>
                     ${prediction.toFixed(0)}
                   </div>
-                  <p className="text-white/80">Annual premium estimate</p>
+                  <p style={{color: 'rgba(255, 255, 255, 0.8)'}}>Annual premium estimate</p>
                 </div>
                 
                 {/* Premium Breakdown */}
                 <div className="bg-white/10 rounded-xl p-4 mb-6">
-                  <h4 className="font-bold text-white mb-3">Premium Breakdown</h4>
+                  <h4 className="font-bold mb-3" style={{color: '#ffffff'}}>Premium Breakdown</h4>
                   <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="text-white/90">Monthly: <span className="font-bold text-white">${(prediction / 12).toFixed(0)}</span></div>
-                    <div className="text-white/90">Quarterly: <span className="font-bold text-white">${(prediction / 4).toFixed(0)}</span></div>
+                    <div style={{color: 'rgba(255, 255, 255, 0.9)'}}>Monthly: <span className="font-bold" style={{color: '#ffffff'}}>${(prediction / 12).toFixed(0)}</span></div>
+                    <div style={{color: 'rgba(255, 255, 255, 0.9)'}}>Quarterly: <span className="font-bold" style={{color: '#ffffff'}}>${(prediction / 4).toFixed(0)}</span></div>
                   </div>
                 </div>
 
@@ -395,8 +395,9 @@ function App() {
                 {contributions && (
                   <div className="bg-white/10 rounded-xl p-4">
                     <button
-                      className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-bold mb-3'
+                      className='flex items-center gap-2 hover:opacity-80 transition-opacity duration-200 font-bold mb-3'
                       onClick={() => setShowDetails(!showDetails)}
+                      style={{color: '#ffffff'}}
                     >
                       {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       Feature Impact {showDetails ? '▲' : '▼'}
@@ -407,8 +408,8 @@ function App() {
                           const isPositive = value >= 0;
                           return (
                             <div key={feature} className="flex items-center justify-between text-sm">
-                              <span className="text-white/90 capitalize">{feature}</span>
-                              <span className={`font-bold ${isPositive ? 'text-red-200' : 'text-green-200'}`}>
+                              <span style={{color: 'rgba(255, 255, 255, 0.9)'}} className="capitalize">{feature}</span>
+                              <span className="font-bold" style={{color: isPositive ? '#fca5a5' : '#86efac'}}>
                                 {isPositive ? '+' : ''}${value.toFixed(0)}
                               </span>
                             </div>
@@ -425,7 +426,7 @@ function App() {
       </div>
 
       {/* Mobile Layout */}
-      <div className="md:hidden min-h-screen p-4">
+      <div className="md:hidden w-full h-screen p-4 overflow-y-auto">
         {/* Mobile Title */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
