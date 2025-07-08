@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Calculator, Heart, Users, Cigarette, TrendingUp, Info, Eye, EyeOff } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL || 'https://medical-insurance-cost-predictor-xby8.onrender.com/';
 
 function App() {
   const [formData, setFormData] = useState({
