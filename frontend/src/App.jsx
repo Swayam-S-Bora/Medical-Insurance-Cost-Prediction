@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Calculator, Heart, Users, Cigarette, TrendingUp, Info, Eye, EyeOff } from 'lucide-react';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function App() {
   const [formData, setFormData] = useState({
     age: '',
@@ -42,24 +44,7 @@ function App() {
     };
 
     try {
-      // Simulate API call with setTimeout for demo
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Mock prediction data
-      const mockPrediction = 8500 + (payload.age * 100) + (payload.bmi * 150) + (payload.children * 500) + (payload.smoker === 'yes' ? 5000 : 0);
-      setPrediction(mockPrediction);
-      
-      // Mock contributions
-      const mockContributions = {
-        age: payload.age * 2.5,
-        bmi: (payload.bmi - 25) * 50,
-        children: payload.children * 200,
-        smoker: payload.smoker === 'yes' ? 4000 : -1000
-      };
-      setContributions(mockContributions);
-
-      /*
-      const res = await fetch('http://localhost:8000/predict', {
+      const res = await fetch(`${API_URL}/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -67,14 +52,13 @@ function App() {
       const data = await res.json();
       setPrediction(data.predicted_insurance_cost);
 
-      const explainRes = await fetch('http://localhost:8000/explain', {
+      const explainRes = await fetch(`${API_URL}/explain`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       const explainData = await explainRes.json();
       setContributions(explainData.contributions);
-      */
     } catch (error) {
       console.error('Error:', error);
     } finally {
