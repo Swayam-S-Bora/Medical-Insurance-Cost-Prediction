@@ -137,12 +137,12 @@ function App() {
   const bmiInfo = formData.bmi ? getBMICategory(parseFloat(formData.bmi)) : null;
 
   return (
-    <div className="w-full h-screen overflow-hidden app-container">
+    <div className="w-full h-screen overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       {/* Desktop Layout */}
       <div className="hidden md:flex w-full h-full">
         {/* Left Side - Input Form */}
-        <div className="w-[65%] h-full flex items-center justify-center p-4 lg:p-8">
-          <div className="w-full max-w-2xl flex-shrink-0">
+        <div className="w-[60%] h-full flex items-center justify-center p-4 lg:p-8">
+          <div className="w-full max-w-xl flex-shrink-0">
             <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 lg:p-8 border border-white/30">
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -341,7 +341,7 @@ function App() {
         </div>
 
         {/* Right Side - Title and Results */}
-        <div className="w-[35%] h-full flex items-center justify-center bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm relative overflow-hidden">
+        <div className="w-[40%] h-full flex items-center justify-center relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%)' }}>
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
@@ -426,18 +426,18 @@ function App() {
       </div>
 
       {/* Mobile Layout */}
-      <div className="md:hidden w-full h-screen p-4 overflow-y-auto">
+      <div className="md:hidden w-full h-screen p-4 overflow-y-auto" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
         {/* Mobile Title */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
               <Activity className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold" style={{color: '#ffffff'}}>
               Medical Insurance Cost Predictor
             </h1>
           </div>
-          <p className="text-gray-600">Get an estimate of your medical insurance premium based on your profile</p>
+          <p style={{color: 'rgba(255, 255, 255, 0.8)'}}>Get an estimate of your medical insurance premium based on your profile</p>
         </div>
 
         {/* Mobile Form */}
