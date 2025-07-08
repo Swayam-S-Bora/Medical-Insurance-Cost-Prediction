@@ -1,9 +1,10 @@
 @import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,8 +22,8 @@ a:hover {
 
 body {
   margin: 0;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #ffffff !important;
+  color: #000000 !important;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -53,20 +54,36 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+input, select, textarea {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Additional dark mode overrides */
 @media (prefers-color-scheme: dark) {
+  input, select, textarea {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #d1d5db !important;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  
   body {
-    background-color: #121212;
-    color: #ffffff;
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
-
-  button {
-    background-color: #1f1f1f;
-    color: #fff;
-  }
-
-  input, select {
-    background-color: #1f1f1f;
-    color: #fff;
-    border: 1px solid #555;
+  
+  div, span, p, h1, h2, h3, h4, h5, h6 {
+    color: inherit !important;
   }
 }
