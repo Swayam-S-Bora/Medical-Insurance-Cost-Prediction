@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calculator, Heart, Users, Cigarette, TrendingUp, Info, Eye, EyeOff } from 'lucide-react';
+import { Calculator, Heart, Users, Cigarette, TrendingUp, Info, Eye, EyeOff, Activity, Ruler, Weight } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL || 'https://medical-insurance-cost-predictor-xby8.onrender.com';
 
@@ -16,6 +16,7 @@ function App() {
   const [contributions, setContributions] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,6 +61,7 @@ function App() {
       });
       const explainData = await explainRes.json();
       setContributions(explainData.contributions);
+      setShowResults(true);
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -135,32 +137,321 @@ function App() {
   const bmiInfo = formData.bmi ? getBMICategory(parseFloat(formData.bmi)) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex min-h-screen">
+        {/* Left Side - Input Form */}
+        <div className="w-1/2 p-8 flex items-center justify-center">
+          <div className="w-full max-w-md">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20">
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
+                    <Activity className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    Calculate Premium
+                  </h2>
+                </div>
+                <p className="text-gray-600 text-sm">Enter your details to get an accurate estimate</p>
+              </div>
+
+              <div className="space-y-6">
+                {/* Age Input */}
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                    <TrendingUp className="w-4 h-4 text-blue-600" />
+                    Age
+                  </label>
+                  <input
+                    type="number"
+                    name="age"
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                    placeholder="Enter your age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    min="18"
+                    max="100"
+                    required
+                  />
+                </div>
+
+                {/* BMI Input */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                      <Heart className="w-4 h-4 text-red-500" />
+                      BMI (Body Mass Index)
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setCalculatorVisible(!calculatorVisible)}
+                      className="text-xs bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-3 py-1 rounded-full hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 flex items-center gap-1 shadow-md"
+                    >
+                      <Calculator className="w-3 h-3" />
+                      {calculatorVisible ? 'Hide' : 'Calculate'}
+                    </button>
+                  </div>
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="bmi"
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                    placeholder="Enter your BMI"
+                    value={formData.bmi}
+                    onChange={handleChange}
+                    min="10"
+                    max="50"
+                    required
+                  />
+                  {bmiInfo && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="text-gray-600">Category:</span>
+                      <span className={`font-semibold ${bmiInfo.color}`}>{bmiInfo.category}</span>
+                    </div>
+                  )}
+                  
+                  {/* BMI Calculator */}
+                  {calculatorVisible && (
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-4 mt-3 shadow-inner">
+                      <h4 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
+                        <Calculator className="w-4 h-4" />
+                        BMI Calculator
+                      </h4>
+                      <div className="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                            <Ruler className="w-3 h-3" />
+                            Height (cm)
+                          </label>
+                          <input
+                            type="number"
+                            placeholder="e.g., 175"
+                            value={bmiCalc.height}
+                            onChange={(e) => setBmiCalc({ ...bmiCalc, height: e.target.value })}
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                            <Weight className="w-3 h-3" />
+                            Weight (kg)
+                          </label>
+                          <input
+                            type="number"
+                            placeholder="e.g., 70"
+                            value={bmiCalc.weight}
+                            onChange={(e) => setBmiCalc({ ...bmiCalc, weight: e.target.value })}
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                          />
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const heightInMeters = bmiCalc.height / 100;
+                          const calculatedBMI = (bmiCalc.weight / (heightInMeters * heightInMeters)).toFixed(2);
+                          setBmiCalc({ ...bmiCalc, calculatedBMI });
+                          setFormData({ ...formData, bmi: calculatedBMI });
+                        }}
+                        disabled={!bmiCalc.height || !bmiCalc.weight}
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md"
+                      >
+                        <Calculator className="w-4 h-4" />
+                        Calculate & Use BMI
+                      </button>
+                      {bmiCalc.calculatedBMI && (
+                        <div className="mt-3 p-3 bg-white rounded-lg border border-blue-200 shadow-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-600">Calculated BMI:</span>
+                            <span className="font-bold text-blue-800">{bmiCalc.calculatedBMI}</span>
+                          </div>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-sm text-gray-600">Category:</span>
+                            <span className={`text-sm font-bold ${getBMICategory(parseFloat(bmiCalc.calculatedBMI)).color}`}>
+                              {getBMICategory(parseFloat(bmiCalc.calculatedBMI)).category}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Children Input */}
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                    <Users className="w-4 h-4 text-green-600" />
+                    Number of Children
+                  </label>
+                  <input
+                    type="number"
+                    name="children"
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                    placeholder="Enter number of children"
+                    value={formData.children}
+                    onChange={handleChange}
+                    min="0"
+                    max="10"
+                    required
+                  />
+                </div>
+
+                {/* Smoker Select */}
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                    <Cigarette className="w-4 h-4 text-orange-600" />
+                    Smoking Status
+                  </label>
+                  <select
+                    name="smoker"
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                    value={formData.smoker}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select your smoking status</option>
+                    <option value="no">Non-smoker</option>
+                    <option value="yes">Smoker</option>
+                  </select>
+                </div>
+
+                {/* Submit Button */}
+                <div className="mt-8">
+                  <button
+                    onClick={handleSubmit}
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg transform hover:scale-105"
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                        Calculating...
+                      </>
+                    ) : (
+                      <>
+                        <Calculator className="w-5 h-5" />
+                        Calculate Premium
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side - Title and Results */}
+        <div className="w-1/2 p-8 flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
+            <div className="absolute top-40 right-32 w-24 h-24 bg-white rounded-full"></div>
+            <div className="absolute bottom-32 left-40 w-16 h-16 bg-white rounded-full"></div>
+          </div>
+          
+          {/* Title (shows when no results) */}
+          <div className={`text-center transition-all duration-1000 ${showResults ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'} ${showResults ? 'absolute' : 'relative'}`}>
+            <div className="mb-6">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
+                <Activity className="w-10 h-10 text-white" />
+              </div>
+              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
+                Medical Insurance
+              </h1>
+              <h2 className="text-4xl font-bold text-white/90 mb-6">
+                Cost Predictor
+              </h2>
+              <p className="text-white/80 text-lg max-w-md mx-auto leading-relaxed">
+                Get an accurate estimate of your medical insurance premium based on your personal profile and health factors
+              </p>
+            </div>
+          </div>
+
+          {/* Results (fades in when available) */}
+          {prediction !== null && (
+            <div className={`transition-all duration-1000 ${showResults ? 'opacity-100 transform scale-100' : 'opacity-0 transform scale-95'} ${!showResults ? 'absolute' : 'relative'} w-full max-w-md`}>
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-2xl">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
+                    <Calculator className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Your Estimated Premium</h3>
+                  <div className="text-5xl font-bold text-white mb-2">
+                    ${prediction.toFixed(0)}
+                  </div>
+                  <p className="text-white/80">Annual premium estimate</p>
+                </div>
+                
+                {/* Premium Breakdown */}
+                <div className="bg-white/10 rounded-xl p-4 mb-6">
+                  <h4 className="font-bold text-white mb-3">Premium Breakdown</h4>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="text-white/90">Monthly: <span className="font-bold text-white">${(prediction / 12).toFixed(0)}</span></div>
+                    <div className="text-white/90">Quarterly: <span className="font-bold text-white">${(prediction / 4).toFixed(0)}</span></div>
+                  </div>
+                </div>
+
+                {/* Feature Impact */}
+                {contributions && (
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <button
+                      className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-bold mb-3'
+                      onClick={() => setShowDetails(!showDetails)}
+                    >
+                      {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      Feature Impact {showDetails ? '▲' : '▼'}
+                    </button>
+                    {showDetails && (
+                      <div className="space-y-2">
+                        {Object.entries(contributions).map(([feature, value]) => {
+                          const isPositive = value >= 0;
+                          return (
+                            <div key={feature} className="flex items-center justify-between text-sm">
+                              <span className="text-white/90 capitalize">{feature}</span>
+                              <span className={`font-bold ${isPositive ? 'text-red-200' : 'text-green-200'}`}>
+                                {isPositive ? '+' : ''}${value.toFixed(0)}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="lg:hidden min-h-screen p-4">
+        {/* Mobile Title */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-blue-600 rounded-full">
-              <Calculator className="w-8 h-8 text-white" />
+            <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
+              <Activity className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-800">Medical Insurance Cost Predictor</h1>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Medical Insurance Cost Predictor
+            </h1>
           </div>
           <p className="text-gray-600">Get an estimate of your medical insurance premium based on your profile</p>
         </div>
 
-        {/* Main Form Card */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+        {/* Mobile Form */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 mb-6 border border-white/20">
           <div className="space-y-6">
             {/* Age Input */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 font-medium text-gray-700">
-                <TrendingUp className="w-4 h-4" />
+              <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                <TrendingUp className="w-4 h-4 text-blue-600" />
                 Age
               </label>
               <input
                 type="number"
                 name="age"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
                 placeholder="Enter your age"
                 value={formData.age}
                 onChange={handleChange}
@@ -173,24 +464,24 @@ function App() {
             {/* BMI Input */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2 font-medium text-gray-700">
-                  <Heart className="w-4 h-4" />
+                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                  <Heart className="w-4 h-4 text-red-500" />
                   BMI (Body Mass Index)
                 </label>
                 <button
                   type="button"
                   onClick={() => setCalculatorVisible(!calculatorVisible)}
-                  className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition-colors duration-200 flex items-center gap-1"
+                  className="text-xs bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-3 py-1 rounded-full hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 flex items-center gap-1 shadow-md"
                 >
                   <Calculator className="w-3 h-3" />
-                  {calculatorVisible ? 'Hide' : 'Calculate BMI'}
+                  {calculatorVisible ? 'Hide' : 'Calculate'}
                 </button>
               </div>
               <input
                 type="number"
                 step="0.1"
                 name="bmi"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
                 placeholder="Enter your BMI"
                 value={formData.bmi}
                 onChange={handleChange}
@@ -201,20 +492,23 @@ function App() {
               {bmiInfo && (
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-gray-600">Category:</span>
-                  <span className={`font-medium ${bmiInfo.color}`}>{bmiInfo.category}</span>
+                  <span className={`font-semibold ${bmiInfo.color}`}>{bmiInfo.category}</span>
                 </div>
               )}
               
-              {/* BMI Calculator - moved here */}
+              {/* BMI Calculator */}
               {calculatorVisible && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-3">
-                  <h4 className="font-medium text-blue-800 mb-3 flex items-center gap-2">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-4 mt-3 shadow-inner">
+                  <h4 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
                     <Calculator className="w-4 h-4" />
                     BMI Calculator
                   </h4>
                   <div className="grid grid-cols-2 gap-3 mb-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                        <Ruler className="w-3 h-3" />
+                        Height (cm)
+                      </label>
                       <input
                         type="number"
                         placeholder="e.g., 175"
@@ -224,7 +518,10 @@ function App() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                        <Weight className="w-3 h-3" />
+                        Weight (kg)
+                      </label>
                       <input
                         type="number"
                         placeholder="e.g., 70"
@@ -242,20 +539,20 @@ function App() {
                       setFormData({ ...formData, bmi: calculatedBMI });
                     }}
                     disabled={!bmiCalc.height || !bmiCalc.weight}
-                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md"
                   >
                     <Calculator className="w-4 h-4" />
                     Calculate & Use BMI
                   </button>
                   {bmiCalc.calculatedBMI && (
-                    <div className="mt-3 p-3 bg-white rounded-lg border border-blue-200">
+                    <div className="mt-3 p-3 bg-white rounded-lg border border-blue-200 shadow-sm">
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">Calculated BMI:</span>
-                        <span className="font-semibold text-blue-800">{bmiCalc.calculatedBMI}</span>
+                        <span className="font-bold text-blue-800">{bmiCalc.calculatedBMI}</span>
                       </div>
                       <div className="flex items-center justify-between mt-1">
                         <span className="text-sm text-gray-600">Category:</span>
-                        <span className={`text-sm font-medium ${getBMICategory(parseFloat(bmiCalc.calculatedBMI)).color}`}>
+                        <span className={`text-sm font-bold ${getBMICategory(parseFloat(bmiCalc.calculatedBMI)).color}`}>
                           {getBMICategory(parseFloat(bmiCalc.calculatedBMI)).category}
                         </span>
                       </div>
@@ -267,14 +564,14 @@ function App() {
 
             {/* Children Input */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 font-medium text-gray-700">
-                <Users className="w-4 h-4" />
+              <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                <Users className="w-4 h-4 text-green-600" />
                 Number of Children
               </label>
               <input
                 type="number"
                 name="children"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
                 placeholder="Enter number of children"
                 value={formData.children}
                 onChange={handleChange}
@@ -286,13 +583,13 @@ function App() {
 
             {/* Smoker Select */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 font-medium text-gray-700">
-                <Cigarette className="w-4 h-4" />
+              <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
+                <Cigarette className="w-4 h-4 text-orange-600" />
                 Smoking Status
               </label>
               <select
                 name="smoker"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
                 value={formData.smoker}
                 onChange={handleChange}
                 required
@@ -304,18 +601,11 @@ function App() {
             </div>
 
             {/* Submit Button */}
-            <div className="space-y-4">
-              <button
-                onClick={() => setCalculatorVisible(!calculatorVisible)}
-                className="w-full bg-gray-200 text-black py-2 rounded-lg hover:bg-gray-300 transition-all duration-200 font-medium text-lg"
-              >
-                Toggle BMI Calculator
-              </button>
-
+            <div className="mt-8">
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg transform hover:scale-105"
               >
                 {isLoading ? (
                   <>
@@ -330,51 +620,17 @@ function App() {
                 )}
               </button>
             </div>
-            {calculatorVisible && (
-              <div className="bg-gray-100 p-4 rounded-lg shadow-inner">
-                <h3 className="font-medium text-gray-800 mb-2">BMI Calculator</h3>
-                <input
-                  type="number"
-                  placeholder="Height in cm"
-                  value={bmiCalc.height}
-                  onChange={(e) => setBmiCalc({ ...bmiCalc, height: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-2"
-                />
-                <input
-                  type="number"
-                  placeholder="Weight in kg"
-                  value={bmiCalc.weight}
-                  onChange={(e) => setBmiCalc({ ...bmiCalc, weight: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                />
-                <button
-                  onClick={() => {
-                    const heightInMeters = bmiCalc.height / 100;
-                    const calculatedBMI = (bmiCalc.weight / (heightInMeters * heightInMeters)).toFixed(2);
-                    setBmiCalc({ ...bmiCalc, calculatedBMI });
-                  }}
-                  className="mt-2 bg-blue-500 text-white py-1 px-4 rounded-lg"
-                >
-                  Calculate BMI
-                </button>
-                {bmiCalc.calculatedBMI && (
-                  <p className="text-sm text-gray-600 mt-2">
-                    Your BMI is: <span className="font-semibold">{bmiCalc.calculatedBMI}</span>
-                  </p>
-                )}
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Results Card */}
+        {/* Mobile Results */}
         {prediction !== null && (
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 border border-white/20">
             <div className="text-center mb-6">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
                 <Calculator className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Your Estimated Premium</h3>
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">Your Estimated Premium</h3>
               <div className="text-4xl font-bold text-green-600 mb-1">
                 ${prediction.toFixed(0)}
               </div>
@@ -382,11 +638,11 @@ function App() {
             </div>
             
             {/* Premium Breakdown */}
-            <div className="bg-gray-50 rounded-lg p-4 mb-4">
-              <h4 className="font-medium text-gray-700 mb-2">Premium Breakdown</h4>
+            <div className="bg-gray-50 rounded-xl p-4 mb-4">
+              <h4 className="font-bold text-gray-700 mb-2">Premium Breakdown</h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>Monthly: <span className="font-medium">${(prediction / 12).toFixed(0)}</span></div>
-                <div>Quarterly: <span className="font-medium">${(prediction / 4).toFixed(0)}</span></div>
+                <div>Monthly: <span className="font-bold">${(prediction / 12).toFixed(0)}</span></div>
+                <div>Quarterly: <span className="font-bold">${(prediction / 4).toFixed(0)}</span></div>
               </div>
             </div>
 
