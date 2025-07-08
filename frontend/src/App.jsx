@@ -11,6 +11,7 @@ function App() {
     smoker: ''
   });
   const [calculatorVisible, setCalculatorVisible] = useState(false);
+  const [bmiCalc, setBmiCalc] = useState({ height: '', weight: '', calculatedBMI: null });
   const [prediction, setPrediction] = useState(null);
   const [contributions, setContributions] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
@@ -266,16 +267,32 @@ function App() {
                 <input
                   type="number"
                   placeholder="Height in cm"
+                  value={bmiCalc.height}
+                  onChange={(e) => setBmiCalc({ ...bmiCalc, height: e.target.value })}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-2"
                 />
                 <input
                   type="number"
                   placeholder="Weight in kg"
+                  value={bmiCalc.weight}
+                  onChange={(e) => setBmiCalc({ ...bmiCalc, weight: e.target.value })}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2"
                 />
-                <button className="mt-2 bg-blue-500 text-white py-1 px-4 rounded-lg">
+                <button
+                  onClick={() => {
+                    const heightInMeters = bmiCalc.height / 100;
+                    const calculatedBMI = (bmiCalc.weight / (heightInMeters * heightInMeters)).toFixed(2);
+                    setBmiCalc({ ...bmiCalc, calculatedBMI });
+                  }}
+                  className="mt-2 bg-blue-500 text-white py-1 px-4 rounded-lg"
+                >
                   Calculate BMI
                 </button>
+                {bmiCalc.calculatedBMI && (
+                  <p className="text-sm text-gray-600 mt-2">
+                    Your BMI is: <span className="font-semibold">{bmiCalc.calculatedBMI}</span>
+                  </p>
+                )}
               </div>
             )}
           </div>
