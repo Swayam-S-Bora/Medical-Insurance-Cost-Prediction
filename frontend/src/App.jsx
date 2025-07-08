@@ -10,7 +10,7 @@ function App() {
     children: '',
     smoker: ''
   });
-
+  const [calculatorVisible, setCalculatorVisible] = useState(false);
   const [prediction, setPrediction] = useState(null);
   const [contributions, setContributions] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
@@ -234,23 +234,50 @@ function App() {
             </div>
 
             {/* Submit Button */}
-            <button 
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  Calculating...
-                </>
-              ) : (
-                <>
-                  <Calculator className="w-5 h-5" />
-                  Calculate Premium
-                </>
-              )}
-            </button>
+            <div className="space-y-4">
+              <button
+                onClick={() => setCalculatorVisible(!calculatorVisible)}
+                className="w-full bg-gray-200 text-black py-2 rounded-lg hover:bg-gray-300 transition-all duration-200 font-medium text-lg"
+              >
+                Toggle BMI Calculator
+              </button>
+
+              <button
+                onClick={handleSubmit}
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Calculating...
+                  </>
+                ) : (
+                  <>
+                    <Calculator className="w-5 h-5" />
+                    Calculate Premium
+                  </>
+                )}
+              </button>
+            </div>
+            {calculatorVisible && (
+              <div className="bg-gray-100 p-4 rounded-lg shadow-inner">
+                <h3 className="font-medium text-gray-800 mb-2">BMI Calculator</h3>
+                <input
+                  type="number"
+                  placeholder="Height in cm"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-2"
+                />
+                <input
+                  type="number"
+                  placeholder="Weight in kg"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                />
+                <button className="mt-2 bg-blue-500 text-white py-1 px-4 rounded-lg">
+                  Calculate BMI
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
