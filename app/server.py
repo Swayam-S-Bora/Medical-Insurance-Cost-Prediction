@@ -9,19 +9,6 @@ import joblib
 # Global model variable
 model = None
 
-@app.on_event("startup")
-async def load_model():
-    global model
-    try:
-        model = joblib.load("app/insurancemodel.pkl")
-        print("Model loaded successfully")
-    except Exception as e:
-        print(f"Error loading model: {e}")
-        raise e
-
-# Initialize SHAP explainer
-# explainer = shap.Explainer(model)
-
 # Input schema using Pydantic
 class InsuranceInput(BaseModel):
     age: int
@@ -31,6 +18,16 @@ class InsuranceInput(BaseModel):
 
 # FastAPI app
 app = FastAPI()
+
+@app.on_event("startup")
+async def load_model():
+    global model
+    try:
+        model = joblib.load("app/insurancemodel.pkl")
+        print("Model loaded successfully")
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        raise e
 
 app.add_middleware(
     CORSMiddleware,
