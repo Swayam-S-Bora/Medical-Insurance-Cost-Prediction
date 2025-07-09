@@ -106,7 +106,7 @@ function App() {
             </div>
             {items.map(([feature, value]) => {
               const percent = (Math.abs(value) / maxAbs) * 100;
-              const isPositive = value > 0;
+              const isPositive = value >= 0;
               return (
                 <div key={feature} className="bg-white rounded-lg p-3 shadow-sm">
                   <div className="flex items-center justify-between mb-2">
