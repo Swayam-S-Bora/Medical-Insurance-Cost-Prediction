@@ -498,7 +498,6 @@ function App() {
                       </label>
                       <input
                         type="number"
-                        placeholder="e.g., 175"
                         value={bmiCalc.height}
                         onChange={(e) => setBmiCalc({ ...bmiCalc, height: e.target.value })}
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
@@ -511,7 +510,6 @@ function App() {
                       </label>
                       <input
                         type="number"
-                        placeholder="e.g., 70"
                         value={bmiCalc.weight}
                         onChange={(e) => setBmiCalc({ ...bmiCalc, weight: e.target.value })}
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
