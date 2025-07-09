@@ -6,8 +6,18 @@ import pandas as pd
 # import shap
 import joblib
 
-# Load the model
-model = joblib.load("app/insurancemodel.pkl")
+# Global model variable
+model = None
+
+@app.on_event("startup")
+async def load_model():
+    global model
+    try:
+        model = joblib.load("app/insurancemodel.pkl")
+        print("Model loaded successfully")
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        raise e
 
 # Initialize SHAP explainer
 # explainer = shap.Explainer(model)
@@ -33,6 +43,10 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"Message": "Model API"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
 
 @app.post("/predict")
 def predict(data: InsuranceInput):
