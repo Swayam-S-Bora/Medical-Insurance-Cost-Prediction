@@ -47,6 +47,10 @@ def health_check():
 
 @app.post("/predict")
 def predict(data: InsuranceInput):
+    # Check if model is loaded
+    if model is None:
+        return {"error": "Model not loaded yet"}
+    
     # Map string inputs to numeric values (as used during training)
     smoker_map = {"yes": 1, "no": 0}
 
@@ -65,6 +69,10 @@ def predict(data: InsuranceInput):
 
 @app.post("/explain")
 def explain(data: InsuranceInput):
+    # Check if model is loaded
+    if model is None:
+        return {"error": "Model not loaded yet"}
+    
     # Simplified feature importance explanation without SHAP
     smoker_map = {"yes": 1, "no": 0}
     try:
