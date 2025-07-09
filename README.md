@@ -4,7 +4,7 @@ A responsive web application to predict medical insurance costs based on various
 
 ## 🌐 Live Demo
 
-You can access the live application at: [https://medical-insurance-cost-predictor.vercel.app/](https://medical-insurance-cost-predictor.vercel.app/)
+You can access the live application at: [https://medical-insurance-cost-prediction.vercel.app/](https://medical-insurance-cost-prediction.vercel.app/)
 
 ## 📋 Project Overview
 
