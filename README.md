@@ -24,13 +24,10 @@ This project aims to predict medical insurance costs using machine learning mode
 - **FastAPI**: Modern, fast web framework for building APIs with Python
 - **Python**: Core programming language
 - **Uvicorn**: ASGI server for running FastAPI applications
-- **Pydantic**: Data validation and settings management
 
 ### Frontend
 - **React**: JavaScript library for building user interfaces
-- **Vite**: Fast build tool and development server
 - **Tailwind CSS**: Utility-first CSS framework for styling
-- **Lucide React**: Beautiful and customizable icons
 
 ### Machine Learning
 - **scikit-learn**: Machine learning library for model training and evaluation
@@ -160,9 +157,9 @@ The model identified the following feature importance rankings:
 
 ## 📊 Dataset Information
 
-The model was trained on a comprehensive medical insurance dataset containing:
+Dataset: [https://www.kaggle.com/datasets/rahulvyasm/medical-insurance-cost-prediction](https://www.kaggle.com/datasets/rahulvyasm/medical-insurance-cost-prediction)
+The model was trained on medical insurance dataset from kaggle containing:
 
-- **Total Records**: 1,338 insurance records
 - **Features**: 
   - Age (18-64 years)
   - Sex (Male/Female)
