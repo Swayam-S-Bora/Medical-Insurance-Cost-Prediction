@@ -1,4 +1,5 @@
 import React from 'react';
+import { Activity } from 'lucide-react';
 
 export default function PremiumResult({ prediction, showResults, children }) {
   return (
@@ -14,8 +15,7 @@ export default function PremiumResult({ prediction, showResults, children }) {
         <div className="text-center transition-all duration-1000 opacity-100 transform scale-100 relative">
           <div className="mb-6">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
-              {/* You can use a Calculator or Activity icon here if desired */}
-              <span role="img" aria-label="Calculator" style={{fontSize: '2.5rem', color: '#fff'}}>🧮</span>
+              <Activity className="w-10 h-10" style={{color: '#ffffff'}} />
             </div>
             <h1 className="desktop-title text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{color: '#ffffff'}}>
               Medical Insurance

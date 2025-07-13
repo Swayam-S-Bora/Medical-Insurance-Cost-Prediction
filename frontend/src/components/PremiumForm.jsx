@@ -1,16 +1,13 @@
 import React from 'react';
-import { TrendingUp, Users, Heart, Calculator, Cigarette } from 'lucide-react';
+import { Activity, TrendingUp, Users, Heart, Calculator, Cigarette } from 'lucide-react';
 
 export default function PremiumForm({
   formData,
-  setFormData,
   handleChange,
   handleSubmit,
   isLoading,
   calculatorVisible,
   setCalculatorVisible,
-  bmiCalc,
-  setBmiCalc,
   bmiInfo,
   BMICalculatorComponent
 }) {
@@ -20,7 +17,7 @@ export default function PremiumForm({
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
-              <Calculator className="w-6 h-6 text-white" />
+              <Activity className="w-6 h-6 text-white" />
             </div>
             <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
               Calculate Premium
