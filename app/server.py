@@ -4,9 +4,13 @@ from pydantic import BaseModel
 import numpy as np
 import pandas as pd
 import joblib
+import shap
+import warnings
+warnings.filterwarnings("ignore")
+from contextlib import asynccontextmanager
 
-# Global model variable
 model = None
+explainer = None
 
 # Input schema using Pydantic
 class InsuranceInput(BaseModel):
@@ -18,15 +22,19 @@ class InsuranceInput(BaseModel):
 # FastAPI app
 app = FastAPI()
 
-@app.on_event("startup")
-async def load_model():
-    global model
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global model, explainer
     try:
         model = joblib.load("app/insurancemodel.pkl")
-        print("Model loaded successfully")
+        explainer = shap.Explainer(model)
+        print("Model and SHAP explainer loaded successfully")
     except Exception as e:
         print(f"Error loading model: {e}")
         raise e
+    yield  # This allows the app to start
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -68,24 +76,21 @@ def predict(data: InsuranceInput):
 
 @app.post("/explain")
 def explain(data: InsuranceInput):
-    # Check if model is loaded
-    if model is None:
-        return {"error": "Model not loaded yet"}
+    # Check if model and explainer are loaded
+    if model is None or explainer is None:
+        return {"error": "Model or explainer not loaded yet"}
     
-    # Simplified feature importance explanation without SHAP
     smoker_map = {"yes": 1, "no": 0}
     try:
-        # Basic feature impact simulation
-        smoker_value = smoker_map[data.smoker.lower()]
-        
-        # Simple feature importance approximation
-        contributions = {
-            "age": data.age * 250,  # Age has moderate impact
-            "bmi": (data.bmi - 25) * 400,  # BMI deviation from normal
-            "children": data.children * 500,  # Each child adds cost
-            "smoker": smoker_value * 20000,  # Smoking has major impact
-        }
-        
+        input_data = np.array([[
+            data.age,
+            data.bmi,
+            data.children,
+            smoker_map[data.smoker.lower()],
+        ]])
+        shap_values = explainer(input_data)
+        feature_names = ["age", "bmi", "children", "smoker"]
+        contributions = dict(zip(feature_names, shap_values.values[0]))
         return {"contributions": contributions}
-    except KeyError as e:
-        return {"error": f"Invalid input: {e}"}
+    except Exception as e:
+        return {"error": f"SHAP explanation failed: {e}"}
