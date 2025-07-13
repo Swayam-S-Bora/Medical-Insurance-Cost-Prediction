@@ -17,7 +17,7 @@ export default function PremiumForm({
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
-              <Activity className="w-6 h-6 text-white" />
+              <Calculator className="w-6 h-6 text-white" />
             </div>
             <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
               Calculate Premium
@@ -30,7 +30,7 @@ export default function PremiumForm({
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
-                <TrendingUp className="w-4 h-4 text-blue-600" />
+                <TrendingUp className="w-4 h-4 text-green-600" />
                 Age
               </label>
               <input
