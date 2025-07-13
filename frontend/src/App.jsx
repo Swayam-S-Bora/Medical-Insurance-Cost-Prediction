@@ -46,8 +46,9 @@ function App() {
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    if (formData.smoker === '') {
-      alert('Please select an option for Smoker.');
+    // Validate all fields
+    if (!formData.age || !formData.bmi || !formData.children || formData.smoker === '') {
+      alert('Please fill in all fields including Age, BMI, Children, and Smoking Status.');
       setIsLoading(false);
       return;
     }
@@ -137,7 +138,7 @@ function App() {
                         {featureIcons[feature]}
                         <span className="font-medium capitalize text-white">{feature}</span>
                       </div>
-                      <span className={`font-semibold ${isPositive ? 'text-red-300' : 'text-green-300'}`}>
+                      <span className={`font-semibold ${isPositive ? 'text-red-600' : 'text-green-600'}`}>
                         {isPositive ? '+' : ''}${value.toFixed(0)}
                       </span>
                     </div>

@@ -53,7 +53,6 @@ button {
   transition: all 0.25s;
 }
 
-/* Override default button styles for feature impact buttons */
 .feature-impact-button {
   background-color: rgba(255, 255, 255, 0.1) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -70,7 +69,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Force consistent styling regardless of browser dark mode */
 input, select, textarea {
   background-color: #ffffff !important;
   color: #000000 !important;
@@ -86,7 +84,6 @@ input:focus, select:focus, textarea:focus {
   outline: none !important;
 }
 
-/* Override dark mode for form elements */
 @media (prefers-color-scheme: dark) {
   input, select, textarea {
     background-color: #ffffff !important;
@@ -104,7 +101,6 @@ input:focus, select:focus, textarea:focus {
     color: #000000 !important;
   }
   
-  /* Ensure feature impact button is visible in dark mode */
   .feature-impact-btn {
     background-color: rgba(255, 255, 255, 0.1) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -116,7 +112,6 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
-/* Optimize for wider screens */
 @media (min-width: 1024px) {
   .app-container {
     max-width: none;
@@ -125,7 +120,6 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
-/* Responsive text scaling */
 @media (min-width: 1440px) {
   .desktop-title {
     font-size: 3.5rem;
@@ -146,16 +140,14 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
-/* Custom darker blur for output/result container */
 .output-blur-container {
-  background: rgba(75, 47, 166, 0.92); /* dark violet/purple, matches app scheme */
+  background: rgba(75, 47, 166, 0.92); 
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border-radius: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
-/* Feature impact panel scrollable area with modern scrollbar */
 .feature-impact-panel {
   scrollbar-width: thin;
   scrollbar-color: #a78bfa #3b2176;
@@ -178,7 +170,6 @@ input:focus, select:focus, textarea:focus {
   border-radius: 8px;
 }
 
-/* Ensure feature impact scroll area fills available space */
 .feature-impact-scroll {
   min-height: 0;
   flex: 1 1 0%;
