@@ -1,6 +1,8 @@
 import { TrendingUp, Heart, Users, Cigarette, Info, Eye, EyeOff } from 'lucide-react';
 import React from 'react';
 
+const MAX_FEATURE_IMPACT = 10000;
+
 const featureExplanations = {
   age: "Age is a key factor - older individuals typically have higher healthcare costs",
   bmi: "BMI impacts health risk assessment and premium calculations",
@@ -18,7 +20,6 @@ const featureIcons = {
 export default function FeatureImpactPanel({ contributions, showDetails, setShowDetails, isMobile }) {
   if (!contributions) return null;
   const items = Object.entries(contributions);
-  const maxAbs = Math.max(...items.map(([_, v]) => Math.abs(v)));
 
   if (isMobile) {
     return (
@@ -45,7 +46,7 @@ export default function FeatureImpactPanel({ contributions, showDetails, setShow
               Understanding how each factor contributes to your premium:
             </div>
             {items.map(([feature, value]) => {
-              const percent = (Math.abs(value) / maxAbs) * 100;
+              const percent = Math.min(100, (Math.abs(value) / MAX_FEATURE_IMPACT) * 100);
               const isPositive = value > 0;
               return (
                 <div key={feature} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 shadow-sm border border-white/20">
@@ -99,7 +100,7 @@ export default function FeatureImpactPanel({ contributions, showDetails, setShow
             Understanding how each factor contributes to your premium:
           </div>
           {items.map(([feature, value]) => {
-            const percent = (Math.abs(value) / maxAbs) * 100;
+            const percent = Math.min(100, (Math.abs(value) / MAX_FEATURE_IMPACT) * 100);
             const isPositive = value > 0;
             return (
               <div key={feature} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 shadow-sm border border-white/20">
