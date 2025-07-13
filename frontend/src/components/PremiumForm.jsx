@@ -30,7 +30,7 @@ export default function PremiumForm({
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm">
-                <TrendingUp className="w-4 h-4 text-green-600" />
+                <TrendingUp className="w-4 h-4 text-blue-600" />
                 Age
               </label>
               <input
