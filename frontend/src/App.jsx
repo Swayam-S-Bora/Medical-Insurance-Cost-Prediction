@@ -153,7 +153,7 @@ function App() {
     return (
       <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
         <button
-          className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-medium mb-3'
+          className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-medium mb-3 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg border border-white/20'
           onClick={() => setShowDetails(!showDetails)}
         >
           {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
