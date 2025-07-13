@@ -148,26 +148,33 @@ input:focus, select:focus, textarea:focus {
 
 /* Custom darker blur for output/result container */
 .output-blur-container {
-  background: rgba(40, 30, 80, 0.55); /* darker, more visible */
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(24, 18, 48, 0.88); /* much darker and more opaque */
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
   border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
-/* Feature impact panel scrollable area */
+/* Feature impact panel scrollable area with modern scrollbar */
 .feature-impact-panel {
   scrollbar-width: thin;
-  scrollbar-color: #888 #222;
+  scrollbar-color: #7f9cf5 #2d2a4a;
 }
 .feature-impact-panel::-webkit-scrollbar {
-  width: 8px;
-}
-.feature-impact-panel::-webkit-scrollbar-thumb {
-  background: #888;
+  width: 10px;
+  background: #2d2a4a;
   border-radius: 8px;
 }
+.feature-impact-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #7f9cf5 0%, #a78bfa 100%);
+  border-radius: 8px;
+  min-height: 40px;
+}
+.feature-impact-panel::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
 .feature-impact-panel::-webkit-scrollbar-track {
-  background: #222;
+  background: #2d2a4a;
   border-radius: 8px;
 }
 
