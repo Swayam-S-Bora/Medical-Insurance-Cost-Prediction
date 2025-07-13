@@ -317,7 +317,7 @@ function App() {
                       </h4>
                       <div className="grid grid-cols-2 gap-3 mb-3">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                          <label className="flex items-center gap-1 text-sm font-semibold text-gray-700 mb-1">
                             <Ruler className="w-3 h-3" />
                             Height (cm)
                           </label>
@@ -329,7 +329,7 @@ function App() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                          <label className="flex items-center gap-1 text-sm font-semibold text-gray-700 mb-1">
                             <Weight className="w-3 h-3" />
                             Weight (kg)
                           </label>
@@ -543,7 +543,7 @@ function App() {
                   </h4>
                   <div className="grid grid-cols-2 gap-3 mb-3">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                      <label className="flex items-center gap-1 text-sm font-semibold text-gray-700 mb-1">
                         <Ruler className="w-3 h-3" />
                         Height (cm)
                       </label>
@@ -555,7 +555,7 @@ function App() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                      <label className="flex items-center gap-1 text-sm font-semibold text-gray-700 mb-1">
                         <Weight className="w-3 h-3" />
                         Weight (kg)
                       </label>

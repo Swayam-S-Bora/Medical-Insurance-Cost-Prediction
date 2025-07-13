@@ -148,7 +148,7 @@ input:focus, select:focus, textarea:focus {
 
 /* Custom darker blur for output/result container */
 .output-blur-container {
-  background: rgba(24, 18, 48, 0.88); /* much darker and more opaque */
+  background: rgba(75, 47, 166, 0.92); /* dark violet/purple, matches app scheme */
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border-radius: 1.5rem;
@@ -158,11 +158,11 @@ input:focus, select:focus, textarea:focus {
 /* Feature impact panel scrollable area with modern scrollbar */
 .feature-impact-panel {
   scrollbar-width: thin;
-  scrollbar-color: #7f9cf5 #2d2a4a;
+  scrollbar-color: #a78bfa #3b2176;
 }
 .feature-impact-panel::-webkit-scrollbar {
   width: 10px;
-  background: #2d2a4a;
+  background: #3b2176;
   border-radius: 8px;
 }
 .feature-impact-panel::-webkit-scrollbar-thumb {
@@ -174,7 +174,7 @@ input:focus, select:focus, textarea:focus {
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
 }
 .feature-impact-panel::-webkit-scrollbar-track {
-  background: #2d2a4a;
+  background: #3b2176;
   border-radius: 8px;
 }
 
