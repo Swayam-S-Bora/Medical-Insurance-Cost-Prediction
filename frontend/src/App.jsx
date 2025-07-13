@@ -138,7 +138,7 @@ function App() {
                         {featureIcons[feature]}
                         <span className="font-medium capitalize text-white">{feature}</span>
                       </div>
-                      <span className={`font-semibold ${isPositive ? 'text-red-600' : 'text-green-600'}`}>
+                      <span className={`font-semibold ${value === 0 ? 'text-green-600' : (isPositive ? 'text-red-600' : 'text-green-600')}`}>
                         {isPositive ? '+' : ''}${value.toFixed(0)}
                       </span>
                     </div>
@@ -192,7 +192,7 @@ function App() {
                       {featureIcons[feature]}
                       <span className="font-medium capitalize text-white">{feature}</span>
                     </div>
-                    <span className={`font-semibold ${isPositive ? 'text-red-600' : 'text-green-600'}`}>
+                    <span className={`font-semibold ${value === 0 ? 'text-green-600' : (isPositive ? 'text-red-600' : 'text-green-600')}`}>
                       {isPositive ? '+' : ''}${value.toFixed(0)}
                     </span>
                   </div>
