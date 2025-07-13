@@ -157,7 +157,6 @@ The model identified the following feature importance rankings:
 
 ## 📊 Dataset Information
 
-Dataset: [https://www.kaggle.com/datasets/rahulvyasm/medical-insurance-cost-prediction](https://www.kaggle.com/datasets/rahulvyasm/medical-insurance-cost-prediction)
 The model was trained on medical insurance dataset from kaggle containing:
 
 - **Features**: 
@@ -238,7 +237,7 @@ Medical-Insurance-Cost-Prediction/
 
 ## Acknowledgments
 
-- Dataset source: Kaggle Medical Insurance Cost Dataset
+- Dataset source: Kaggle Medical Insurance Cost Dataset [https://www.kaggle.com/datasets/rahulvyasm/medical-insurance-cost-prediction](https://www.kaggle.com/datasets/rahulvyasm/medical-insurance-cost-prediction)
 - Icons: Lucide React
 - Deployment: Render & Vercel
 
