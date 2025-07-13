@@ -9,6 +9,26 @@ export default function PremiumResult({ prediction, showResults, children }) {
         <div className="absolute top-40 right-32 w-24 h-24 bg-white rounded-full"></div>
         <div className="absolute bottom-32 left-40 w-16 h-16 bg-white rounded-full"></div>
       </div>
+      {/* Title (shows when no results) */}
+      {prediction === null && (
+        <div className="text-center transition-all duration-1000 opacity-100 transform scale-100 relative">
+          <div className="mb-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
+              {/* You can use a Calculator or Activity icon here if desired */}
+              <span role="img" aria-label="Calculator" style={{fontSize: '2.5rem', color: '#fff'}}>🧮</span>
+            </div>
+            <h1 className="desktop-title text-4xl lg:text-5xl font-bold mb-4 tracking-tight" style={{color: '#ffffff'}}>
+              Medical Insurance
+            </h1>
+            <h2 className="desktop-subtitle text-3xl lg:text-4xl font-bold mb-6" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
+              Cost Predictor
+            </h2>
+            <p className="text-lg max-w-md mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.8)'}}>
+              Get an accurate estimate of your medical insurance premium based on your personal profile and health factors
+            </p>
+          </div>
+        </div>
+      )}
       {/* Results (fades in when available) */}
       {prediction !== null && (
         <div className={`transition-all duration-1000 ${showResults ? 'opacity-100 transform scale-100' : 'opacity-0 transform scale-95'} ${!showResults ? 'absolute' : 'relative'} w-full max-w-md`}>
