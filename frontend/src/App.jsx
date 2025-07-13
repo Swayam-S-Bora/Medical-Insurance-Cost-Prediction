@@ -439,33 +439,7 @@ function App() {
                 </div>
 
                 {/* Feature Impact */}
-                {contributions && (
-                  <div className="bg-white/10 rounded-xl p-4">
-                    <button
-                      className='flex items-center gap-2 hover:opacity-80 transition-opacity duration-200 font-bold mb-3'
-                      onClick={() => setShowDetails(!showDetails)}
-                      style={{color: '#ffffff'}}
-                    >
-                      {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                      Feature Impact {showDetails ? '▲' : '▼'}
-                    </button>
-                    {showDetails && (
-                      <div className="space-y-2">
-                        {Object.entries(contributions).map(([feature, value]) => {
-                          const isPositive = value >= 0;
-                          return (
-                            <div key={feature} className="flex items-center justify-between text-sm">
-                              <span style={{color: 'rgba(255, 255, 255, 0.9)'}} className="capitalize">{feature}</span>
-                              <span className="font-bold" style={{color: isPositive ? '#fca5a5' : '#86efac'}}>
-                                {isPositive ? '+' : ''}${value.toFixed(0)}
-                              </span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                )}
+                {renderFeatureImpactPanel(false)}
               </div>
             </div>
           )}
@@ -657,28 +631,28 @@ function App() {
 
         {/* Mobile Results */}
         {prediction !== null && (
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 border border-white/20">
+          <div className="bg-white/20 backdrop-blur-sm rounded-3xl shadow-2xl p-6 border border-white/30">
             <div className="text-center mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-                <Calculator className="w-8 h-8 text-green-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
+                <Calculator className="w-8 h-8" style={{color: '#ffffff'}} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">Your Estimated Premium</h3>
-              <div className="text-4xl font-bold text-green-600 mb-1">
+              <h3 className="text-2xl font-bold mb-2" style={{color: '#ffffff'}}>Your Estimated Premium</h3>
+              <div className="text-4xl font-bold mb-1" style={{color: '#ffffff'}}>
                 ${prediction.toFixed(0)}
               </div>
-              <p className="text-gray-600">Annual premium estimate</p>
+              <p style={{color: 'rgba(255, 255, 255, 0.8)'}}>Annual premium estimate</p>
             </div>
             
             {/* Premium Breakdown */}
-            <div className="bg-gray-50 rounded-xl p-4 mb-4">
-              <h4 className="font-bold text-gray-700 mb-2">Premium Breakdown</h4>
+            <div className="bg-white/10 rounded-xl p-4 mb-6">
+              <h4 className="font-bold mb-3" style={{color: '#ffffff'}}>Premium Breakdown</h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>Monthly: <span className="font-bold">${(prediction / 12).toFixed(0)}</span></div>
-                <div>Quarterly: <span className="font-bold">${(prediction / 4).toFixed(0)}</span></div>
+                <div style={{color: 'rgba(255, 255, 255, 0.9)'}}>Monthly: <span className="font-bold" style={{color: '#ffffff'}}>${(prediction / 12).toFixed(0)}</span></div>
+                <div style={{color: 'rgba(255, 255, 255, 0.9)'}}>Quarterly: <span className="font-bold" style={{color: '#ffffff'}}>${(prediction / 4).toFixed(0)}</span></div>
               </div>
             </div>
 
-            {renderExplainabilityPanel()}
+            {renderFeatureImpactPanel(true)}
           </div>
         )}
       </div>
