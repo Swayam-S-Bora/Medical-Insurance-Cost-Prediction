@@ -8,7 +8,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark; // Ensure compatibility with dark mode
+  color-scheme: light dark; /* Ensure compatibility with dark mode */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -93,6 +93,17 @@ input:focus, select:focus, textarea:focus {
   option {
     background-color: #ffffff !important;
     color: #000000 !important;
+  }
+  
+  /* Ensure feature impact button is visible in dark mode */
+  .feature-impact-btn {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+  }
+  
+  .feature-impact-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
   }
 }
 
