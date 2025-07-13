@@ -433,7 +433,7 @@ function App() {
           {/* Results (fades in when available) */}
           {prediction !== null && (
             <div className={`transition-all duration-1000 ${showResults ? 'opacity-100 transform scale-100' : 'opacity-0 transform scale-95'} ${!showResults ? 'absolute' : 'relative'} w-full max-w-md`}>
-              <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-8 border border-white/30 shadow-2xl">
+              <div className="bg-white/30 backdrop-blur-sm rounded-3xl p-8 border border-white/40 shadow-2xl max-h-[85vh] overflow-y-auto">
                 <div className="text-center mb-8">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
                     <Calculator className="w-8 h-8" style={{color: '#ffffff'}} />
@@ -446,7 +446,7 @@ function App() {
                 </div>
                 
                 {/* Premium Breakdown */}
-                <div className="bg-white/10 rounded-xl p-4 mb-6">
+                <div className="bg-white/20 rounded-xl p-4 mb-6">
                   <h4 className="font-bold mb-3" style={{color: '#ffffff'}}>Premium Breakdown</h4>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div style={{color: 'rgba(255, 255, 255, 0.9)'}}>Monthly: <span className="font-bold" style={{color: '#ffffff'}}>${(prediction / 12).toFixed(0)}</span></div>
