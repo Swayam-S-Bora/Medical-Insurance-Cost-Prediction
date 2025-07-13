@@ -109,7 +109,7 @@ export default function FeatureImpactPanel({ contributions, showDetails, setShow
                     {featureIcons[feature]}
                     <span className="font-medium capitalize text-white">{feature}</span>
                   </div>
-                  <span className={`font-semibold ${value === 0 ? 'text-green-400' : (isPositive ? 'text-red-400' : 'text-green-400')}`}>
+                  <span className={`font-semibold ${value === 0 ? 'text-blue-400' : (isPositive ? 'text-yellow-400' : 'text-blue-400')}`}>
                     {isPositive ? '+' : ''}${value.toFixed(0)}
                   </span>
                 </div>
