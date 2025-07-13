@@ -3,6 +3,20 @@ import { Calculator, Heart, Users, Cigarette, TrendingUp, Info, Eye, EyeOff, Act
 
 const API_URL = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL || 'https://medical-insurance-cost-predictor-xby8.onrender.com';
 
+// Preload API to reduce cold starts
+const preloadAPI = async () => {
+  try {
+    await fetch(`${API_URL}/health`, { method: 'GET' });
+  } catch (error) {
+    console.log('API preload failed:', error);
+  }
+};
+
+// Preload on component mount
+if (typeof window !== 'undefined') {
+  setTimeout(preloadAPI, 1000);
+}
+
 function App() {
   const [formData, setFormData] = useState({
     age: '',
@@ -69,7 +83,7 @@ function App() {
     }
   };
 
-  const renderExplainabilityPanel = () => {
+  const renderFeatureImpactPanel = (isMobile = false) => {
     if (!contributions) return null;
 
     const items = Object.entries(contributions);
@@ -89,18 +103,65 @@ function App() {
       smoker: <Cigarette className="w-4 h-4" />
     };
 
+    if (isMobile) {
+      return (
+        <div className="mt-6 bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+          <button
+            className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-medium'
+            onClick={() => setShowDetails(!showDetails)}
+          >
+            {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            Feature Impact Analysis {showDetails ? '▲' : '▼'}
+          </button>
+          {showDetails && (
+            <div className="mt-4 space-y-4">
+              <div className="text-sm text-white/80 mb-3">
+                <Info className="w-4 h-4 inline mr-1" />
+                Understanding how each factor contributes to your premium:
+              </div>
+              {items.map(([feature, value]) => {
+                const percent = (Math.abs(value) / maxAbs) * 100;
+                const isPositive = value >= 0;
+                return (
+                  <div key={feature} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 shadow-sm border border-white/20">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        {featureIcons[feature]}
+                        <span className="font-medium capitalize text-white">{feature}</span>
+                      </div>
+                      <span className={`font-semibold ${isPositive ? 'text-red-300' : 'text-green-300'}`}>
+                        {isPositive ? '+' : ''}${value.toFixed(0)}
+                      </span>
+                    </div>
+                    <div className="w-full bg-white/20 h-3 rounded-full overflow-hidden mb-2">
+                      <div
+                        className={`h-3 transition-all duration-500 ${isPositive ? 'bg-gradient-to-r from-red-400 to-red-600' : 'bg-gradient-to-r from-green-400 to-green-600'}`}
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
+                    <p className="text-xs text-white/70">{featureExplanations[feature]}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // Desktop version
     return (
-      <div className="mt-6 bg-gray-50 rounded-lg p-4">
+      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
         <button
-          className='flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors duration-200 font-medium'
+          className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-medium mb-3'
           onClick={() => setShowDetails(!showDetails)}
         >
           {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           Feature Impact Analysis {showDetails ? '▲' : '▼'}
         </button>
         {showDetails && (
-          <div className="mt-4 space-y-4">
-            <div className="text-sm text-gray-600 mb-3">
+          <div className="space-y-3">
+            <div className="text-sm text-white/80 mb-3">
               <Info className="w-4 h-4 inline mr-1" />
               Understanding how each factor contributes to your premium:
             </div>
@@ -108,23 +169,23 @@ function App() {
               const percent = (Math.abs(value) / maxAbs) * 100;
               const isPositive = value >= 0;
               return (
-                <div key={feature} className="bg-white rounded-lg p-3 shadow-sm">
+                <div key={feature} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 shadow-sm border border-white/20">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       {featureIcons[feature]}
-                      <span className="font-medium capitalize">{feature}</span>
+                      <span className="font-medium capitalize text-white">{feature}</span>
                     </div>
-                    <span className={`font-semibold ${isPositive ? 'text-red-600' : 'text-green-600'}`}>
+                    <span className={`font-semibold ${isPositive ? 'text-red-300' : 'text-green-300'}`}>
                       {isPositive ? '+' : ''}${value.toFixed(0)}
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 h-3 rounded-full overflow-hidden mb-2">
+                  <div className="w-full bg-white/20 h-3 rounded-full overflow-hidden mb-2">
                     <div
                       className={`h-3 transition-all duration-500 ${isPositive ? 'bg-gradient-to-r from-red-400 to-red-600' : 'bg-gradient-to-r from-green-400 to-green-600'}`}
                       style={{ width: `${percent}%` }}
                     />
                   </div>
-                  <p className="text-xs text-gray-600">{featureExplanations[feature]}</p>
+                  <p className="text-xs text-white/70">{featureExplanations[feature]}</p>
                 </div>
               );
             })}
