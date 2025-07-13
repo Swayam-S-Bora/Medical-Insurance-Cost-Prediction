@@ -84,6 +84,33 @@ input:focus, select:focus, textarea:focus {
   outline: none !important;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  background: transparent;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 0.5em;
+  box-shadow: none;
+  filter: none;
+}
+input[type=number]::-webkit-inner-spin-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 0.5em;
+  transition: background 0.2s;
+}
+input[type=number]:hover::-webkit-inner-spin-button, 
+input[type=number]:focus::-webkit-inner-spin-button {
+  background: linear-gradient(135deg, #5a67d8 0%, #6c47a3 100%);
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
 @media (prefers-color-scheme: dark) {
   input, select, textarea {
     background-color: #ffffff !important;
