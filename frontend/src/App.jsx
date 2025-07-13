@@ -105,7 +105,7 @@ function App() {
 
     if (isMobile) {
       return (
-        <div className="mt-6 bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+        <div className="feature-impact-panel bg-white/30 backdrop-blur-md rounded-xl p-4 border border-white/20 max-h-60 overflow-y-auto mt-6">
           <button
             className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-medium px-3 py-2 rounded-lg border-0'
             style={{
@@ -159,7 +159,7 @@ function App() {
 
     // Desktop version
     return (
-      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+      <div className="feature-impact-panel bg-white/20 backdrop-blur-md rounded-xl p-4 border border-white/20 max-h-72 overflow-y-auto">
         <button
           className='flex items-center gap-2 text-white hover:text-white/80 transition-colors duration-200 font-medium mb-3 px-3 py-2 rounded-lg border-0'
           style={{
@@ -433,7 +433,7 @@ function App() {
           {/* Results (fades in when available) */}
           {prediction !== null && (
             <div className={`transition-all duration-1000 ${showResults ? 'opacity-100 transform scale-100' : 'opacity-0 transform scale-95'} ${!showResults ? 'absolute' : 'relative'} w-full max-w-md`}>
-              <div className="bg-white/30 backdrop-blur-sm rounded-3xl p-8 border border-white/40 shadow-2xl max-h-[85vh] overflow-y-auto">
+              <div className="output-blur-container p-8 border border-white/40 shadow-2xl max-h-[85vh] flex flex-col">
                 <div className="text-center mb-8">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
                     <Calculator className="w-8 h-8" style={{color: '#ffffff'}} />
@@ -455,7 +455,7 @@ function App() {
                 </div>
 
                 {/* Feature Impact */}
-                {renderFeatureImpactPanel(false)}
+                <div className="feature-impact-scroll flex-1 min-h-0">{renderFeatureImpactPanel(false)}</div>
               </div>
             </div>
           )}
@@ -647,7 +647,7 @@ function App() {
 
         {/* Mobile Results */}
         {prediction !== null && (
-          <div className="bg-white/20 backdrop-blur-sm rounded-3xl shadow-2xl p-6 border border-white/30">
+          <div className="output-blur-container p-6 border border-white/30 shadow-2xl flex flex-col max-h-[80vh]">
             <div className="text-center mb-6">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
                 <Calculator className="w-8 h-8" style={{color: '#ffffff'}} />

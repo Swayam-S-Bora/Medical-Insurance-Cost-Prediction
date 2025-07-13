@@ -145,3 +145,36 @@ input:focus, select:focus, textarea:focus {
     font-size: 3rem;
   }
 }
+
+/* Custom darker blur for output/result container */
+.output-blur-container {
+  background: rgba(40, 30, 80, 0.55); /* darker, more visible */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 1.5rem;
+}
+
+/* Feature impact panel scrollable area */
+.feature-impact-panel {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #222;
+}
+.feature-impact-panel::-webkit-scrollbar {
+  width: 8px;
+}
+.feature-impact-panel::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+.feature-impact-panel::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 8px;
+}
+
+/* Ensure feature impact scroll area fills available space */
+.feature-impact-scroll {
+  min-height: 0;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+}
